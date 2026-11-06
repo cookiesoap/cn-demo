@@ -4,18 +4,18 @@ Always uses time.time() (UTC epoch seconds). Never uses local time.
 Request : {"id": "...", "tz": "...", "seq": n}
 Reply   : {"seq": n, "t2": server_receive_time, "t3": server_send_time}
 """
-import argparse, json, socket, time
+import argparse, json, socket, time 
 from collections import defaultdict
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser()  #Accepts host and port from terminal commands
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=9999)
     ap.add_argument("--quiet", action="store_true", help="don't print every request")
     args = ap.parse_args()
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #Establishes network communication
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((args.host, args.port))
     print(f"[server] UTC reference server on {args.host}:{args.port}", flush=True)
